@@ -18,6 +18,7 @@ To merge a hotfix branch back into your master branch to deploy to production. Y
 checkout master
 merge hotfix
 \end{gitBashBox}
+After resolving any merge-conflicts simply commit the changes (your editor will usually stage the changes). After a rebase you do \gitinline{rebase --continue}!
 
 \subsection{What way does one merge using the base command?}
  All you have to do is check out the branch you wish to merge into and then run the \gitinline{git merge} command
@@ -29,7 +30,13 @@ pull --rebase
 \end{gitBashBox}
 This ensures a clean history, and p2 can then push their changes to the remote. If they still have unstaged changes in their working directory, these must be stashed first.
 
-\subsection{Undoing a merge}
+\subsection{Merging a remote branch into local}
+\begin{gitBashBox}
+fetch origin <branch_name>
+merge origin/<branch_name>
+\end{gitBashBox}
+
+\section{Undoing a merge}
 \begin{enumerate}
     \item not commited: \gitinline{git merge --abort
 }
@@ -37,6 +44,28 @@ This ensures a clean history, and p2 can then push their changes to the remote. 
 }
     \item pushed and commited \gitinline{git revert -m 1 <merge_commit_hash>}
 \end{enumerate}
+
+\section{Extracting a single subdirectory from a remote branch}
+The sequence is an elegant way to "subtree split" a directory from an external source and incorporate it into another repository or branch, preserving a clean history for just that subdirectory.
+
+\begin{gitBashBox}
+fetch <remote>
+switch --orphan fork_temp
+rm -rf .
+checkout <remote>/main -- path/to/subdirectory
+mv path/to/subdirectory/* .
+commit -m "Isolated <subdirectory_name> from <remote>"
+switch your_branch
+merge fork_temp --allow-unrelated-histories --no-commit --no-ff
+add .
+commit -m "Manually merged forked <subdirectory_name> directory" 
+\end{gitBashBox}
+
+\noindent\gitinline{git swithc --orphan <branch_name>} creates and switches to a new branch with no history. It's like starting a brand-new repo snapshot inside your existing repo.
+\nln\gitinline{git rm -rf} removes all files from the working tree and staging area, just to be sure.
+\nln\gitinline{git checkout <remote>/main -- path/to/subdirectory} checks out that directory from the <remote>'s remote branch. The - - tells Git “everything after this is a file/directory path.”
+\nln\gitinline{git mv path/to/subdirectory/* .} moves all the checked-out files from that subdirectory into the root of the orphan branch.
+\nln\gitinline{git merge fork_temp --allow-unrelated-histories} allows Git to combine two branches that do not share a common ancestor, which is necessary since fork\_temp was created without any history.
 
 \section{Rebase}
 Why would you do this though?
@@ -68,9 +97,9 @@ Once you fix it and \gitinline{git rebase --continue}, Git will move on to the n
 
 So:
 
-You’re not “losing” your latest changes — they just haven’t been replayed yet.
+You're not “losing” your latest changes — they just haven't been replayed yet.
 
-You’ll resolve conflicts in the order your commits were originally made.
+You'll resolve conflicts in the order your commits were originally made.
 
 At the end of the rebase, your branch will contain all your commits, sitting neatly on top of the updated main.
 
@@ -81,7 +110,7 @@ must be used afterwards, because the new commit history is different than the on
 
 \subsection{Rebasing up to a certain commit - step by step allowing for changes}
 \begin{gitBashBox}
-git rebase -i <commit hash>    
+rebase -i <commit hash>    
 \end{gitBashBox}
 
 \begin{tcolorbox}[infoBox]

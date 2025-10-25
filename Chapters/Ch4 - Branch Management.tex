@@ -3,14 +3,13 @@
 \chapterunderlay
 
 \section{Branching}
-To create one locally you use the command:\\
-\$git checkout -b my-feature\\
-This combines both:\\
-\$git branch my-feature → creates the branch\\
-\$git checkout my-feature → switches to it\\
+To create a new local branch you have a few options: \gitinline{git branch <new_branch>} is the obvious one. However a better way would be to create and then immediatley switch to that branch, which we can do with \gitinline{git switch -c <new_branch>} or \gitinline{git checkout -b <new_branch>}.
+\nln If you want to push it to a remote, you can create a new branch on the remote and link the two with \gitinline{git push -u origin <branch_name>}
 
-After that it needs to be pushed to the remote via:\\
-\$git push -u origin my-feature\\
+\subsection{Change branch upstream}
+If you want to change the upstream of a branch use \gitinline{git branch -u origin <branch_name>}
+\subsection{Pulling a branch you don't have from remote}
+If a branch exists on the remote, and you know about it via \gitinline{git fetch}, all you need to do is switch to the branch name with \gitinline{git switch <branch-name>}. Git will create, switch to that branch and set it up to track the remote branch for you.
 
 \section{Branch vs. Tag}
 Differences between Git tags and branches

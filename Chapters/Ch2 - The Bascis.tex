@@ -105,7 +105,9 @@ reset --hard HEAD~1
     \end{gitBashBox}
 \end{enumerate}
 \end{enumerate}
-
+\begin{tcolorbox}[infoBox]
+        \textcolor{red}{\textbf{NOTE}}: The \cmdinline{\~1} reverts back to the las commit! Do not confuse this with \gitinline{reset --hard HEAD}, which just \textit{drops} all non commited changes. The modern equivalent is \gitinline{git restore} (with some caveats).
+\end{tcolorbox}
 
 
 \subsection{Undo when pushed}
