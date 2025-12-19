@@ -23,6 +23,7 @@
 \usepackage{tikz} %gives pixel level controll over things and adds \node \draw
 \usetikzlibrary{calc}
 \usepackage{titlesec}
+\usepackage{lmodern} %to make font sacalable
 \usepackage{hyperref} %always load last
 
 % --- Color definitions ---
@@ -56,7 +57,7 @@
 
 % --- Chapter format ---
 \titleformat{\chapter}[block] 
-  {\normalfont\color{orange}\fontsize{60}{60}\selectfont\bfseries} % title font
+  {\normalfont\color{orange}\fontsize{30}{45}\selectfont\bfseries} % title font
   {}               % chapter number
   {0pt}            % space between number and title
   {     \begin{tikzpicture}[remember picture,overlay]
@@ -98,11 +99,11 @@
       {\includegraphics[scale=1]{Images/footer_v4}};
 
     % Page number
-    \node[anchor=north west] (pgnum) at ($(dhref) + (-3.7cm,3.05cm)$)
-      {\huge\color{yellow!81!red} \textbf\thepage};
+    \node[anchor=north west] (pgnum) at ($(dhref) + (-4.8cm,3.33cm)$)
+      {\fontsize{45}{70}\selectfont \color{yellow!81!red} \textbf\thepage};
 
     % Vertical line
-    \draw[line width=2pt, color=yellow!81!red] ($(dhref) + (-4.5cm,1.6cm)$) -- ++(0.4cm,2cm) coordinate (linend);
+    \draw[line width=2pt, color=yellow!81!red] ($(dhref) + (-5.2cm,1.6cm)$) -- ++(0.4cm,2cm) coordinate (linend);
   \end{tikzpicture}
 }
 
