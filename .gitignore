@@ -47,5 +47,6 @@
 *.listing
 build/
 _minted/
-test.pdf
-test.tex
+*.pdf
+/Releases
+
