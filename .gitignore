@@ -48,5 +48,7 @@
 build/
 _minted/
 *.pdf
-/Releases
+Releases/
+.vscode
+
 
