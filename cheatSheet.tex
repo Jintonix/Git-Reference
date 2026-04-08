@@ -1,6 +1,8 @@
 \documentclass{article}
 \usepackage[most]{tcolorbox}
 \usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{multicol}
 
 % Color Definitions
 \definecolor{headerDark}{HTML}{333333}
@@ -37,7 +39,7 @@
     % grow to right by=0mm
     % the ribbon fold corner
     finish={
-        \fill[mintShadow] ([xshift=2.5mm]frame.north west) -- (frame.north west) -- ([xshift=2.5mm, yshift=1.2mm]frame.north west) -- cycle;
+        \fill[mintShadow] ([xshift=2.47mm]frame.north west) -- (frame.north west) -- ([xshift=2.47mm, yshift=1.2mm]frame.north west) -- cycle;
     }
 }
 
@@ -55,7 +57,9 @@
 }
 
 \begin{document}
+\setlength{\columnsep}{1cm}
 
+\begin{multicols}{2}
 \begin{gitcard}{Creating Repository}
     
     \begin{gitsection}{Download an existing repository}
@@ -83,4 +87,19 @@
 
 \end{gitcard}
 
+\columnbreak 
+
+    \begin{gitcard}{Remote Work}
+        \begin{gitsection}{Push Changes}
+            \gitcommand{git push origin main}
+        \end{gitsection}
+        
+        \vspace{6mm}
+        
+        \begin{gitsection}{Pull Changes}
+            \gitcommand{git pull}
+        \end{gitsection}
+    \end{gitcard}
+
+\end{multicols}
 \end{document}
