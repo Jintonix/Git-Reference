@@ -1,0 +1,231 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{JASstyle}[2026/04/12 v1.0 Base Styling]
+%--- TODOs ---
+% TODO-1: figure out how to change \titlespacing for every header individually
+% --------------------------------------------
+% --------------- CORE LAYOUT ----------------
+% --------------------------------------------
+\RequirePackage[a4paper, left=3cm, right=3cm, top=2cm, bottom=2.5cm, footskip=1.2cm]{geometry}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[ngerman]{babel} % uses german as the language
+
+\linespread{1.1} %space between lines
+% \renewcommand{\textendash}{\color{base_color}\rule[0.6ex]{1em}{1.7pt}}
+
+% --------------------------------------------
+% ----------- OVERARCHING PACKAGES -----------
+% --------------------------------------------
+\RequirePackage{graphicx} % Required for inserting images
+\RequirePackage{float} % Allows us to set the position of images
+\RequirePackage{tikz} %gives pixel level controll over things and adds \node \draw
+\usetikzlibrary{calc,arrows,fit,positioning} %required to calc position of tikz objects & for graphs
+\RequirePackage{titlesec}
+\RequirePackage{xurl} %for displaying urls 
+\RequirePackage[colorlinks=true, allcolors=base_color]{hyperref} % Makes the link clickable
+\RequirePackage[most]{tcolorbox} %used to create fancier boxes
+\tcbuselibrary{listings,minted}
+\RequirePackage{caption}
+\RequirePackage{listings} %used to show codeblocks
+\captionsetup[listing]{skip=-7pt} %adjust caption distance to object
+\RequirePackage{fontawesome5} % for the info icon
+\RequirePackage{lmodern} %to make font sacalable
+\RequirePackage{fancyhdr}
+\RequirePackage{fmtcount} %get leading 0s on Chapters
+\RequirePackage{minted}% better syntax highlighting
+\RequirePackage{bookmark}
+% --------------------------------------------
+% ------------------ COLORS ------------------
+% --------------------------------------------
+\RequirePackage{xcolor}
+
+\definecolor{base_color}{RGB}{252, 202, 40}
+
+\definecolor{darkgrayframe}{RGB}{40, 42, 44}
+\definecolor{grayframe}{gray}{0.8}
+
+\definecolor{darkblue}{rgb}{0,0,0.5}
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\definecolor{darkred}{rgb}{0.5,0,0}
+\definecolor{lightgreen}{rgb}{0.5,0.8,0.5}
+\definecolor{lightblue}{RGB}{135 , 210, 250}
+\definecolor{orange}{RGB}{252, 202, 40}
+\definecolor{teal}{RGB}{0, 140, 125}
+
+% --------------------------------------------
+% ------------ HEADERS & FOOTERS -------------
+% --------------------------------------------
+
+
+% --- Page Number Command ---
+% ---------------------------
+\newcommand{\MyPageBar}[1]{%
+    \begin{tikzpicture}[remember picture, overlay]
+        % Draw the Teal Bar
+        % Adjust the (0.6, -2.0) to change width and length
+        \fill[base_color] (-0.4, 0.2) rectangle (0.4, -2.0); 
+        
+        % Place the Number
+        % This stays anchored to the 0,0 point of the footer
+        \node[text=white, font=\Large\bfseries] at (0, -0.2) {#1};
+    \end{tikzpicture}%
+}
+\newcommand{\myfancybox}{\MyPageBar{\thepage}}
+
+% --- Global Header/Footer Settings ---
+% -------------------------------------
+\pagestyle{fancy}
+\fancyhf{} % Clear everything once
+
+% --- Apply to Non-Chapter pages ---
+% ----------------------------------
+\renewcommand{\headrule}{%
+  \color{base_color}\hrule width\headwidth height\headrulewidth \vskip-\headrulewidth
+}
+\fancyhead[C]{\slshape \leftmark}
+\fancyfoot[R]{\myfancybox} %custom page footer
+\fancyfoot[L]{\hspace{1mm} Janek Schneider} %\textbar \hspace{1mm} s230100} <- see line 97
+
+% --- Apply to Chapter pages  ---
+% -------------------------------
+% we need to change the style, because by default chapter pages overwrite the default with plain -> no header or footers
+\fancypagestyle{plain}{
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt} % No line on chapter start
+    \fancyfoot[R]{\myfancybox}        % Same box as above!
+    \fancyfoot[L]{\hspace{1mm} Janek Schneider} %\textbar \hspace{1mm} <- possible addition
+}
+
+% ------ Chapter Header format ------
+% -----------------------------------
+\titleformat{\chapter}[block] 
+  {\normalfont\color{base_color}\fontsize{30}{45}\selectfont\bfseries} % title font
+  {}               % chapter number
+  {0pt}            % space between number and title
+  {  }    
+% \titlespacing*{\chapter}{1.2cm}{-1.5cm}{1cm}
+\titlespacing*{\chapter}{2cm}{1cm}{-1cm} %-> TODO-1
+
+% --- Numberless Chapter Header format ---
+% ----------------------------------------
+\titleformat{name=\chapter,numberless}[block]
+  {\normalfont\color{base_color}\fontsize{30}{45}\selectfont\bfseries\filcenter} % title font
+  {}
+  {0pt}
+  {}
+
+\titlespacing*{name=\chapter,numberless}{0pt}{0pt}{15pt}
+
+% --- Hook to place TikZ overlay on Header-A ---
+% ----------------------------------------------
+\newcommand{\chapteroverlayA}{
+  % \titlespacing*{\chapter}{1.2cm}{-1.5cm}{1cm} -> TODO-1
+  \begin{tikzpicture}[remember picture,overlay]
+    \coordinate (chref) at ($(current page.north west) + (2cm,-2cm)$);
+
+    % Big chapter number
+    \node[anchor=north west] (chnum) at ($(chref.west)+ (0.2em,-8em)$)
+      {\scalebox{5}{\color{base_color} \padzeroes[2]{\decimal{chapter}}}};
+      
+    % "Chapter" label under number
+    \node[anchor=north west] (chlabel) at ($(chnum.south west) + (0.4em,5.5em)$)
+      {\large\color{base_color} Kapitel};
+    
+    % Vertical line
+    \draw[line width=12pt, color=base_color] ($(chref) + (1cm,2cm)$) -- ++ (0cm, -4cm) coordinate (linend);
+
+  \end{tikzpicture}
+  \vspace*{8em}\par\noindent
+}
+
+% --- Hook to place TikZ overlay on Header-B ---
+% ----------------------------------------------
+\newcommand{\chapteroverlayB}{
+  % \titlespacing*{\chapter}{2.2cm}{1.5cm}{-1cm} -> TODO-1
+  \begin{tikzpicture}[remember picture,overlay]
+    \coordinate (chref) at ($(current page.north west) + (2cm,-1cm)$);
+
+    % Big chapter number
+    \node[anchor=north west] (chnum) at ($(chref.west)+ (-1em,0em)$)
+      {\scalebox{5}{\color{orange} 0\thechapter}};
+      
+    % "Chapter" label under number
+    \node[anchor=north west] (chlabel) at ($(chnum.south west) + (0.4em,-1em)$)
+      {\large\color{orange} Chapter};
+    
+    % Vertical line
+    \draw[line width=4pt, color=orange] ($(chref) + (2cm,0cm)$) -- ++(0,-4.15cm) coordinate (linend);
+
+  \end{tikzpicture}
+  \vspace*{1.4cm}
+  \newline %we need the new line otherwise text starts on the title line for some reason
+}
+
+% --------------------------------------------
+% ---------- Hyperref customization ----------
+% --------------------------------------------
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,    % section links
+  citecolor=green,  % citations
+  urlcolor=blue,  % urls
+  backref=page
+}
+
+% --------------------------------------------
+% -------- CUSTOM COMMANDS & MACROS   --------
+% --------------------------------------------
+
+% ---- Codeblock styling ----
+% ---------------------------
+\lstdefinestyle{base-clean}{
+    basicstyle=\ttfamily\small,
+    frame=single,
+    rulecolor=\color{grayframe},
+    breaklines=true,
+    captionpos=b,
+    numbers=left,
+    numberstyle=\scriptsize\color{gray},
+    tabsize=4,
+    showstringspaces=false,
+}
+
+% ------- Custom boxes -------
+% ----------------------------
+\newtcbox{\gitBranchInline}{
+  on line,
+  colback=darkgrayframe,
+  colframe=darkgrayframe,
+  coltext=white,
+  arc=2pt,
+  boxsep=1pt,
+  left=2pt,
+  right=2pt,
+  top=1pt,
+  bottom=1pt,
+  fontupper=\ttfamily
+}
+
+\newtcbox{\inlineCodeBlock}{
+  on line,
+  colback=bggray,
+  colframe=bggray,
+  coltext=lightgray,
+  arc=1pt,
+  boxsep=1pt,
+  left=2pt,
+  right=2pt,
+  top=1pt,
+  bottom=1pt,
+  fontupper=\ttfamily
+}
+
+% ---- Custom commands   ----
+% ---------------------------
+\newcommand{\nn}{\newline\noindent}
+
+% ------- Project specific macros -------
+% ---------------------------------------
+% depending on if the macros file is tex or sty
+\IfFileExists{macros.tex}{\input{macros.tex}}{}
+% \IfFileExists{macros.sty}{\usepackage{macros}}{} 

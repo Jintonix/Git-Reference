@@ -1,105 +1,117 @@
 \documentclass{article}
-\usepackage[most]{tcolorbox}
-\usepackage{xcolor}
-\usepackage[margin=1in]{geometry}
-\usepackage{multicol}
+\usepackage{macros-article}
 
-% Color Definitions
-\definecolor{headerDark}{HTML}{333333}
-\definecolor{mintBox}{HTML}{A7E8D8}
-\definecolor{codeBlack}{HTML}{222222}
-\definecolor{mintShadow}{HTML}{7ABAA9}
-
-\newtcolorbox{gitcard}[1]{
-    enhanced,
-    sharp corners,
-    colback=white,
-    colframe=headerDark,
-    fonttitle=\sffamily\bfseries\large,
-    title={#1},
-    attach boxed title to top left={yshift=-2.5mm, xshift=2mm},
-    boxed title style={sharp corners, colback=headerDark, colframe=headerDark},
-    left=0mm, right=2mm, top=4mm, bottom=2mm,
-    boxrule=1.5pt
-}
-
-\newtcolorbox{gitsection}[1]{
-    enhanced,
-    sharp corners,
-    colback=mintBox,
-    colframe=mintBox,
-    fontupper=\sffamily\bfseries,
-    left=4mm, right=4mm, top=2mm, bottom=2mm,
-    boxrule=0pt,
-    title={#1},
-    coltitle=black,
-    attach title to upper,
-    after title={\par\smallskip},
-    grow to left by=4mm,
-    % grow to right by=0mm
-    % the ribbon fold corner
-    finish={
-        \fill[mintShadow] ([xshift=2.47mm]frame.north west) -- (frame.north west) -- ([xshift=2.47mm, yshift=1.2mm]frame.north west) -- cycle;
-    }
-}
-
-\newcommand{\gitcommand}[1]{%
-    \begin{tcolorbox}[
-        sharp corners, 
-        colback=codeBlack, 
-        colframe=codeBlack, 
-        boxrule=0pt,
-        top=1.5mm, bottom=1.5mm, left=2mm,
-        fontupper=\ttfamily\color{white}
-    ]
-    #1
-    \end{tcolorbox}
-}
 
 \begin{document}
-\setlength{\columnsep}{1cm}
+\begin{gitFlowCard}{Create local Repo then push to remote}
+    \begin{tikzpicture}[
+        node distance=0.8cm,
+        dot/.style={circle, draw=gitRed, fill=white, line width=1.5pt, inner sep=2pt},
+        line/.style={gitRed, line width=1.5pt},
+        dashed line/.style={gitRed, line width=1.5pt, dashed}
+    ]
 
-\begin{multicols}{2}
-\begin{gitcard}{Creating Repository}
-    
-    \begin{gitsection}{Download an existing repository}
-        \gitcommand{git clone <url>}
-    \end{gitsection}
-    
-    \vspace{2mm}
-    
-    \begin{gitsection}{Create new local repository}
-        \gitcommand{git init}
-        \begin{minipage}{0.3\textwidth}
-            \gitcommand{<project name>}
-        \end{minipage}
-        \hspace{2mm}
-        \begin{minipage}{0.6\textwidth}
-            \textsf{\small if added: creates .git in sub-dir}
-        \end{minipage}
-    \end{gitsection}
-    
-    \vspace{2mm}
-    
-    \begin{gitsection}{Links the remote repo to your local one}
-        \gitcommand{git remote add origin <url>}
-    \end{gitsection}
+        % Main Trunk Nodes
+        \node[dot] (n1) {};
+        \node[right=2mm of n1, font=\sffamily\bfseries] {Create repo with hosting service};
+        
+        \node[dot, below=of n1] (n2) {};
+        \node[right=2mm of n2] {\gitlabel{git init} \textsf{\small in your local dir}};
+        
+        \node[dot, below=of n2] (n3) {};
+        \node[right=2mm of n3] {\gitlabel{git remote add origin <url>}};
 
-\end{gitcard}
+        % The Branching Point
+        \node[below=1.5cm of n3] (n4) {}; % Invisible anchor for dashed line
+        
+        % Side Branch for conditional
+        \coordinate (branchStart) at ($(n3)!0.48!(n4)$);
+        \node[right=1.2cm of branchStart, text=gitRed, font=\sffamily\scriptsize\itshape] (condText) {If the created repo has commits already (e.g. a README)};
+        
+        \node[dot, below=0.4cm of condText.south west, anchor=center] (b1) {};
+        \node[right=2mm of b1] {\gitlabel{git fetch}};
+        
+        \node[dot, below=of b1] (b2) {};
+        \node[right=2mm of b2] {\gitlabel{git branch -u origin/main main}};
+        
+        \node[dot, below=of b2] (b3) {};
+        \node[right=2mm of b3] {\gitlabel{git pull --rebase}};
 
-\columnbreak 
 
-    \begin{gitcard}{Remote Work}
-        \begin{gitsection}{Push Changes}
-            \gitcommand{git push origin main}
+
+        % Resume Main Trunk
+        \node[dot, below=4.5cm of n3] (n5) {};
+        \node[right=2mm of n5] {\gitlabel{git add}};
+      
+        \node[dot, below=of n5] (n6) {};
+        \node[right=2mm of n6] {\gitlabel{git commit -m "message"}};
+        
+        \node[dot, below=of n6] (n7) {};
+        \node[right=2mm of n7] {\gitlabel{git push -u origin main}};
+
+        \coordinate (branchEnd) at ($(n4)!0.8!(n5)$);
+        
+        % Drawing the lines
+        \draw[line] (n1) -- (n2);
+        \draw[line] (n2) -- (n3);
+        \draw[dashed line] (n3) -- (n5);
+        \draw[line] (n5) -- (n6);
+        \draw[line] (n6) -- (n7);
+        
+        % Drawing the branch curves
+        \draw[line, rounded corners=5pt] (branchStart) -- ++(0.5,0) |- (b1);
+        \draw[line] (b1) -- (b2);
+        \draw[line] (b2) -- (b3);
+        \draw[line, rounded corners=5pt] (b3) -- ++(0,-0.35) -| (branchEnd);
+
+    \end{tikzpicture}
+\end{gitFlowCard}
+
+\newpage
+
+    \setlength{\columnsep}{1cm}
+
+    \begin{multicols}{2}
+    \begin{gitBaseCard}{Creating Repository}
+        
+        \begin{gitsection}{Download an existing repository}
+            \gitcommand{git clone <url>}
         \end{gitsection}
         
-        \vspace{6mm}
+        \vspace{2mm}
         
-        \begin{gitsection}{Pull Changes}
-            \gitcommand{git pull}
+        \begin{gitsection}{Create new local repository}
+            \gitcommand{git init}
+            \begin{minipage}{0.3\textwidth}
+                \gitcommand{<project name>}
+            \end{minipage}
+            \hspace{2mm}
+            \begin{minipage}{0.6\textwidth}
+                \textsf{\small if added: creates .git in sub-dir}
+            \end{minipage}
         \end{gitsection}
-    \end{gitcard}
+        
+        \vspace{2mm}
+        
+        \begin{gitsection}{Links the remote repo to your local one}
+            \gitcommand{git remote add origin <url>}
+        \end{gitsection}
 
-\end{multicols}
+    \end{gitBaseCard}
+
+    \columnbreak 
+
+        \begin{gitBaseCard}{Remote Work}
+            \begin{gitsection}{Push Changes}
+                \gitcommand{git push origin main}
+            \end{gitsection}
+            
+            \vspace{6mm}
+            
+            \begin{gitsection}{Pull Changes}
+                \gitcommand{git pull}
+            \end{gitsection}
+        \end{gitBaseCard}
+
+    \end{multicols}
 \end{document}

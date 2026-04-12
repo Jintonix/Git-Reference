@@ -3,9 +3,9 @@
 % look into removing files more
 
 \chapter{Tracking Path Changes}
-\chapteroverlay
-\section{Tracking Path Changes}
+\chapteroverlayB
 
+\section{Tracking Path Changes}
 \subsection{Removing files locally}
 To remove a file from Git, you have to remove it from your tracked files (more accurately, remove it from your staging area) and then commit. The \gitinline{git rm} command does that, and also removes the file from your working directory so you don’t see it as an untracked file the next time around.\newline
 This is different than just doing \gitinline{rm <file>}, because then git will just mark the file as “Changes not staged for commit”
