@@ -79,7 +79,11 @@
 
 % ---- Custom commands   ----
 % ---------------------------
-\newcommand{\gitcommand}[1]{%
+\newcommand{\gitinline}[1]{%
+  \colorbox{black}{\textcolor{white}{\lstinline!#1!}}%
+}
+
+\newcommand{\gitcommand}[2]{%
     \begin{tcolorbox}[
         sharp corners, 
         colback=codeBlack, 
@@ -90,6 +94,17 @@
     ]
     #1
     \end{tcolorbox}
+    #2
+}
+% creating the small flag explanations for git
+\newcommand{\gitflag}[4]{%
+    \begin{minipage}{#1\textwidth}
+                    \gitcommand{#2}
+                \end{minipage}
+                \hspace{1mm}
+                \begin{minipage}{#3\textwidth}
+                    \textsf{\small #4}
+                \end{minipage}%
 }
 
 % Code Label Style
@@ -104,3 +119,4 @@
         ] (char) {#1};
     \end{tikzpicture}%
 }
+

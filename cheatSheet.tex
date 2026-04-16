@@ -74,8 +74,8 @@
     \begin{multicols}{2}
         \begin{gitBaseCard}{User Settings}
             \begin{gitsection}{Display gloabal user email \& name}
-                \gitcommand{git settings user:name}
-                \gitcommand{git settings user:email}
+                \gitcommand{git settings user:name}{}
+                \gitcommand{git settings user:email}{}
             \end{gitsection}
             
             \vspace{2mm}
@@ -204,7 +204,7 @@
         \begin{gitBaseCard}{Stash}
             
             \begin{gitsection}{Stash all unstaged files}
-                \gitcommand{git stash}
+            \gitcommand{git stash}{testing}
 
                 \begin{minipage}{0.42\textwidth}
                     \gitcommand{list}
@@ -236,7 +236,7 @@
         \begin{gitBaseCard}{Branches}
             
             \begin{gitsection}{List all local branches}
-                \gitcommand{git branch}
+                \gitcommand{git branch}{test}
                 \begin{minipage}{0.1\textwidth}
                     \gitcommand{-a}
                 \end{minipage}
@@ -278,6 +278,8 @@
                 \begin{minipage}{0.6\textwidth}
                     \textsf{\small delete remote branch}
                 \end{minipage}
+
+                \gitflag{0.3}{--delete}{0.7}{delete remote branch}
             \end{gitsection}
             
             \vspace{2mm}
