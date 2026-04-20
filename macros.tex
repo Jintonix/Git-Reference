@@ -13,6 +13,24 @@
     keywordstyle=[5]\color{red}\bfseries,
     alsoletter={-,<,>},
 }
+    
+\lstdefinestyle{python-clean}{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    frame=single,
+    rulecolor=\color{grayframe},
+    breaklines=true,
+    captionpos=b,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{darkblue}\bfseries,
+    commentstyle=\color{darkgreen}\itshape,
+    stringstyle=\color{darkred},
+    tabsize=4,
+    showstringspaces=false,
+    emph={self,True,False,None}, % extra highlighting
+    emphstyle=\color{blue}
+}
 
 \lstset{
     basicstyle=\ttfamily,
@@ -50,24 +68,7 @@ splitBoxCode/.style={
     top=2pt, bottom=2pt, left=2pt, right=2pt
 }}
 
-\lstdefinestyle{python-clean}{
-    language=Python,
-    basicstyle=\ttfamily\small,
-    frame=single,
-    rulecolor=\color{grayframe},
-    breaklines=true,
-    captionpos=b,
-    numbers=left,
-    numberstyle=\tiny\color{gray},
-    keywordstyle=\color{darkblue}\bfseries,
-    commentstyle=\color{darkgreen}\itshape,
-    stringstyle=\color{darkred},
-    tabsize=4,
-    showstringspaces=false,
-    emph={self,True,False,None}, % extra highlighting
-    emphstyle=\color{blue}
-}
-
+ 
 % --- tcblisting styles ---
 \newtcblisting{gitBashBox} {
     colback=black,

@@ -23,8 +23,12 @@
 % --------------------------------------------
 % -------- CUSTOM COMMANDS & MACROS   --------
 % --------------------------------------------
+% tcbset -> Interace to inherit from
+% newtcolorbox -> A class to implement
+% newtcblisting -> A sub-class specifically for code
 
-
+% newcommand -> kind of like a lambda, for inline stuff OR to group different package commands
+% DeclareTotalTCBox -> when we need to use a custom tcolorbox in a macro
 
 % ------- Custom boxes -------
 % ----------------------------
@@ -75,7 +79,17 @@
     boxrule=1.5pt
 }
 
-
+% Black git Box -> we need tcbset because DeclareTotalTCBox can't inherti from newtcolorboxes
+\tcbset{
+    baseGitStyle/.style={
+        sharp corners, 
+        colback=codeBlack, 
+        colframe=codeBlack, 
+        boxrule=0pt,
+        top=1.5mm, bottom=1.5mm, left=0.5mm,
+        fontupper=\ttfamily\color{white}
+    }
+}
 
 % ---- Custom commands   ----
 % ---------------------------
@@ -83,28 +97,28 @@
   \colorbox{black}{\textcolor{white}{\lstinline!#1!}}%
 }
 
-\newcommand{\gitcommand}[2]{%
-    \begin{tcolorbox}[
-        sharp corners, 
-        colback=codeBlack, 
-        colframe=codeBlack, 
-        boxrule=0pt,
-        top=1.5mm, bottom=1.5mm, left=0.5mm,
-        fontupper=\ttfamily\color{white}
-    ]
-    #1
-    \end{tcolorbox}
-    #2
+\DeclareTotalTCBox{\gitCommand}{ m }{
+    baseGitStyle,
+}{
+    \ttfamily\color{white}#1
 }
+
+\DeclareTotalTCBox{\gitCommandLong}{ m m }{
+    baseGitStyle,
+    after={\par\smallskip\textsf{\small #2}}
+}{
+    \ttfamily\color{white}#1
+}
+
 % creating the small flag explanations for git
 \newcommand{\gitflag}[4]{%
     \begin{minipage}{#1\textwidth}
-                    \gitcommand{#2}
-                \end{minipage}
-                \hspace{1mm}
-                \begin{minipage}{#3\textwidth}
-                    \textsf{\small #4}
-                \end{minipage}%
+        \gitCommand{#2}
+    \end{minipage}
+    \hspace{1mm}
+    \begin{minipage}{#3\textwidth}
+        \textsf{\small #4}
+    \end{minipage}%
 }
 
 % Code Label Style
@@ -119,4 +133,6 @@
         ] (char) {#1};
     \end{tikzpicture}%
 }
+
+
 

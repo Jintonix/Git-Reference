@@ -74,14 +74,14 @@
     \begin{multicols}{2}
         \begin{gitBaseCard}{User Settings}
             \begin{gitsection}{Display gloabal user email \& name}
-                \gitcommand{git settings user:name}{}
-                \gitcommand{git settings user:email}{}
+                \gitCommand{git settings user:name}{}
+                \gitCommand{git settings user:email}{}
             \end{gitsection}
             
             \vspace{2mm}
             
             \begin{gitsection}{Pull Changes}
-                \gitcommand{git pull}
+                \gitCommand{git pull}
             \end{gitsection}
         \end{gitBaseCard}
 
@@ -90,15 +90,15 @@
         \begin{gitBaseCard}{Creating Repository}
             
             \begin{gitsection}{Download an existing repository}
-                \gitcommand{git clone <url>}
+                \gitCommand{git clone <url>}
             \end{gitsection}
             
             \vspace{2mm}
             
             \begin{gitsection}{Create new local repository}
-                \gitcommand{git init}
+                \gitCommand{git init}
                 \begin{minipage}{0.42\textwidth}
-                    \gitcommand{<project name>}
+                    \gitCommand{<project name>}
                 \end{minipage}
                 \hspace{2mm}
                 \begin{minipage}{0.6\textwidth}
@@ -109,7 +109,7 @@
             \vspace{2mm}
             
             \begin{gitsection}{Links the remote repo to your local one}
-                \gitcommand{git remote add origin <url>}
+                \gitCommand{git remote add origin <url>}
             \end{gitsection}
 
         \end{gitBaseCard}
@@ -117,16 +117,16 @@
         \begin{gitBaseCard}{Interacting with staging area}
             
             \begin{gitsection}{Add a file in it's current shape to your next commit (stage)}
-                \gitcommand{git add <file>}
+                \gitCommand{git add <file>}
                  \begin{minipage}{0.42\textwidth}
-                    \gitcommand{add .}
+                    \gitCommand{add .}
                 \end{minipage}
                 \hspace{2mm}
                 \begin{minipage}{0.6\textwidth}
                     \textsf{\small adds every file to staging area}
                 \end{minipage}
                  \begin{minipage}{0.42\textwidth}
-                    \gitcommand{add *}
+                    \gitCommand{add *}
                 \end{minipage}
                 \hspace{2mm}
                 \begin{minipage}{0.6\textwidth}
@@ -137,9 +137,9 @@
             \vspace{2mm}
             
             \begin{gitsection}{Unstage a file while retaining the changes in the working directory}
-                \gitcommand{git reset <file>}
+                \gitCommand{git reset <file>}
                 \begin{minipage}{0.42\textwidth}
-                    \gitcommand{--hard}
+                    \gitCommand{--hard}
                 \end{minipage}
                 \hspace{2mm}
                 \begin{minipage}{0.6\textwidth}
@@ -159,16 +159,16 @@
     \begin{multicols}{2}
         \begin{gitBaseCard}{Commits}
             \begin{gitsection}{Commit all staged files with a commit message}
-                \gitcommand{git commit -m "message"}
+                \gitCommand{git commit -m "message"}
                 \begin{minipage}{0.42\textwidth}
-                    \gitcommand{-am "message"}
+                    \gitCommand{-am "message"}
                 \end{minipage}
                 \hspace{2mm}
                 \begin{minipage}{0.6\textwidth}
                     \textsf{\small add all tracked files and then commit}
                 \end{minipage}
                 \begin{minipage}{0.42\textwidth}
-                    \gitcommand{--amend}
+                    \gitCommand{--amend}
                 \end{minipage}
                 \hspace{2mm}
                 \begin{minipage}{0.6\textwidth}
@@ -179,9 +179,9 @@
             \vspace{2mm}
             
             \begin{gitsection}{Amend a commit}
-                \gitcommand{git reset --soft HEAD~1 }
+                \gitCommand{git reset --soft HEAD~1 }
                 \begin{minipage}{0.42\textwidth}
-                    \gitcommand{--hard <commit>}
+                    \gitCommand{--hard <commit>}
                 \end{minipage}
                 \hspace{2mm}
                 \begin{minipage}{0.57\textwidth}
@@ -192,7 +192,7 @@
             \vspace{2mm}
 
             \begin{gitsection}{Tag your last commit}
-                \gitcommand{git tag <tag-name> }
+                \gitCommand{git tag <tag-name> }
                 \begin{minipage}{1\textwidth}
                     \textsf{\small *tags needs to be committed separately}
                 \end{minipage}
@@ -204,10 +204,10 @@
         \begin{gitBaseCard}{Stash}
             
             \begin{gitsection}{Stash all unstaged files}
-            \gitcommand{git stash}{testing}
+            \gitCommand{git stash}{testing}
 
                 \begin{minipage}{0.42\textwidth}
-                    \gitcommand{list}
+                    \gitCommand{list}
                 \end{minipage}
                 \hspace{2mm}
                 \begin{minipage}{0.6\textwidth}
@@ -215,7 +215,7 @@
                 \end{minipage}
 
                 \begin{minipage}{0.42\textwidth}
-                    \gitcommand{pop}
+                    \gitCommand{pop}
                 \end{minipage}
                 \hspace{2mm}
                 \begin{minipage}{0.6\textwidth}
@@ -223,7 +223,7 @@
                 \end{minipage}
 
                 \begin{minipage}{0.42\textwidth}
-                    \gitcommand{drop}
+                    \gitCommand{drop}
                 \end{minipage}
                 \hspace{2mm}
                 \begin{minipage}{0.6\textwidth}
@@ -236,58 +236,55 @@
         \begin{gitBaseCard}{Branches}
             
             \begin{gitsection}{List all local branches}
-                \gitcommand{git branch}{test}
+                \gitCommand{git branch}{test}
                 \begin{minipage}{0.1\textwidth}
-                    \gitcommand{-a}
+                    \gitCommand{-a}
                 \end{minipage}
                 \hspace{1mm}
                 \begin{minipage}{0.8\textwidth}
                     \textsf{\small list all local and remote branches}
                 \end{minipage}
                 \begin{minipage}{0.12\textwidth}
-                    \gitcommand{-av}
+                    \gitCommand{-av}
                 \end{minipage}
                 \begin{minipage}{0.8\textwidth}
                     \textsf{\small with extra info}
                 \end{minipage}
                 \begin{minipage}{0.42\textwidth}
-                    \gitcommand{-m <new-name>}
+                    \gitCommand{-m <new-name>}
                 \end{minipage}
                 \hspace{2mm}
                 \begin{minipage}{0.6\textwidth}
                     \textsf{\small rename (move) current branch to new}
                 \end{minipage}
                 \begin{minipage}{0.42\textwidth}
-                    \gitcommand{-c <new-name>}
+                    \gitCommand{-c <new-name>}
                 \end{minipage}
                 \hspace{2mm}
                 \begin{minipage}{0.6\textwidth}
                     \textsf{\small copy current branch to new-name}
                 \end{minipage}
                 \begin{minipage}{0.12\textwidth}
-                    \gitcommand{-d}
+                    \gitCommand{-d}
                 \end{minipage}
                 \hspace{2mm}
                 \begin{minipage}{0.6\textwidth}
                     \textsf{\small delete local branch }
                 \end{minipage}
-                \begin{minipage}{0.42\textwidth}
-                    \gitcommand{git push origin --delete <branch>}
-                \end{minipage}
-                \hspace{2mm}
-                \begin{minipage}{0.6\textwidth}
-                    \textsf{\small delete remote branch}
-                \end{minipage}
+                
+                \gitCommandLong{git push origin --delete <branch>}{deletes a remote branch}
+                
 
                 \gitflag{0.3}{--delete}{0.7}{delete remote branch}
+
             \end{gitsection}
             
             \vspace{2mm}
             
             \begin{gitsection}{Create a new branch}
-                \gitcommand{git reset <file>}
-                \begin{minipage}{0.42\textwidth}
-                    \gitcommand{--hard}
+                \gitCommand{git reset <file>}
+                \begin{minipage}{0.32\textwidth}
+                    \gitCommand{--hard}
                 \end{minipage}
                 \hspace{2mm}
                 \begin{minipage}{0.6\textwidth}
