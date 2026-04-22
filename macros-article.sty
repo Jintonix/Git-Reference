@@ -28,7 +28,7 @@
 % newtcblisting -> A sub-class specifically for code
 
 % newcommand -> kind of like a lambda, for inline stuff OR to group different package commands
-% DeclareTotalTCBox -> when we need to use a custom tcolorbox in a macro
+% DeclareTotalTCBox -> when we need to use a custom tcolorbox in a macro -> only for inline stuff
 
 % ------- Custom boxes -------
 % ----------------------------
@@ -87,7 +87,9 @@
         colframe=codeBlack, 
         boxrule=0pt,
         top=1.5mm, bottom=1.5mm, left=0.5mm,
-        fontupper=\ttfamily\color{white}
+        fontupper=\ttfamily\color{white},
+        before skip = 2mm,
+        after skip = 1.5mm
     }
 }
 
@@ -103,11 +105,11 @@
     \ttfamily\color{white}#1
 }
 
-\DeclareTotalTCBox{\gitCommandLong}{ m m }{
-    baseGitStyle,
-    after={\par\smallskip\textsf{\small #2}}
-}{
-    \ttfamily\color{white}#1
+\newcommand{\gitCommandLong}[2]{%
+    \begin{tcolorbox}[baseGitStyle, top=2mm, bottom=2mm]
+    \lstinline!#1!
+    \end{tcolorbox}
+    \break\textsf{\small #2}\par\vspace{2mm}
 }
 
 % creating the small flag explanations for git
@@ -119,6 +121,7 @@
     \begin{minipage}{#3\textwidth}
         \textsf{\small #4}
     \end{minipage}%
+    \par\vspace{2.5mm}
 }
 
 % Code Label Style

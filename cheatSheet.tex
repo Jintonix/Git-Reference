@@ -72,226 +72,117 @@
 \section{User Settings \& Repo creation}
     \setlength{\columnsep}{1cm}
     \begin{multicols}{2}
+
         \begin{gitBaseCard}{User Settings}
             \begin{gitsection}{Display gloabal user email \& name}
-                \gitCommand{git settings user:name}{}
-                \gitCommand{git settings user:email}{}
+                \gitCommandLong{???}{Display gloab settings}
+                \gitflag{0.62}{git settings user.name}{0.25}{dispplay current repos set git user name}
+                \gitflag{0.62}{git settings user.email}{0.25}{dispplay current repos set git user email}
+                \gitflag{0.32}{--gloabl}{0.6}{displays or modifies gloab account settings}
             \end{gitsection}
             
             \vspace{2mm}
             
-            \begin{gitsection}{Pull Changes}
-                \gitCommand{git pull}
+            \begin{gitsection}{Edit .ssh file for more granular user choices}
+                ...where to find the .ssh file
             \end{gitsection}
         \end{gitBaseCard}
 
     \columnbreak
 
         \begin{gitBaseCard}{Creating Repository}
-            
-            \begin{gitsection}{Download an existing repository}
-                \gitCommand{git clone <url>}
+            \begin{gitsection}{...}
+                \gitCommandLong{git clone <url>}{Download an existing repository}
             \end{gitsection}
             
             \vspace{2mm}
             
-            \begin{gitsection}{Create new local repository}
-                \gitCommand{git init}
-                \begin{minipage}{0.42\textwidth}
-                    \gitCommand{<project name>}
-                \end{minipage}
-                \hspace{2mm}
-                \begin{minipage}{0.6\textwidth}
-                    \textsf{\small if added: creates .git in sub-dir}
-                \end{minipage}
+            \begin{gitsection}{...}
+                \gitCommandLong{git init}{Create new local repository}
+                \gitflag{0.45}{<project name>}{0.5}{if added: creates .git in sub-dir}
             \end{gitsection}
             
             \vspace{2mm}
             
-            \begin{gitsection}{Links the remote repo to your local one}
-                \gitCommand{git remote add origin <url>}
+            \begin{gitsection}{...}
+                \gitCommandLong{git remote add origin <url>}{Links the remote repo to your local one}
             \end{gitsection}
-
         \end{gitBaseCard}
 
         \begin{gitBaseCard}{Interacting with staging area}
-            
-            \begin{gitsection}{Add a file in it's current shape to your next commit (stage)}
-                \gitCommand{git add <file>}
-                 \begin{minipage}{0.42\textwidth}
-                    \gitCommand{add .}
-                \end{minipage}
-                \hspace{2mm}
-                \begin{minipage}{0.6\textwidth}
-                    \textsf{\small adds every file to staging area}
-                \end{minipage}
-                 \begin{minipage}{0.42\textwidth}
-                    \gitCommand{add *}
-                \end{minipage}
-                \hspace{2mm}
-                \begin{minipage}{0.6\textwidth}
-                    \textsf{\small don't use this - it is bash syntax}
-                \end{minipage}
+            \begin{gitsection}{...}
+                \gitCommandLong{git add <file>}{Add a file in it's current shape to your next commit (stage)}
+                \gitflag{0.35}{add .}{0.6}{adds every file to staging area}
+                \gitflag{0.35}{add *}{0.6}{CAUTION: don't use this - it is bash syntax}
             \end{gitsection}
             
             \vspace{2mm}
             
-            \begin{gitsection}{Unstage a file while retaining the changes in the working directory}
-                \gitCommand{git reset <file>}
-                \begin{minipage}{0.42\textwidth}
-                    \gitCommand{--hard}
-                \end{minipage}
-                \hspace{2mm}
-                \begin{minipage}{0.6\textwidth}
-                    \textsf{\small ???}
-                \end{minipage}
+            \begin{gitsection}{...}
+                \gitCommandLong{git reset <file>}{Unstage a file while retaining the changes in the working directory}
+                \gitflag{0.3}{--hard}{0.6}{???}
             \end{gitsection}
-            
-
         \end{gitBaseCard}
-
     \end{multicols}
 
-    \newpage
+\newpage
 
 \section{Some other title}
     \setlength{\columnsep}{1cm}
     \begin{multicols}{2}
+
         \begin{gitBaseCard}{Commits}
-            \begin{gitsection}{Commit all staged files with a commit message}
-                \gitCommand{git commit -m "message"}
-                \begin{minipage}{0.42\textwidth}
-                    \gitCommand{-am "message"}
-                \end{minipage}
-                \hspace{2mm}
-                \begin{minipage}{0.6\textwidth}
-                    \textsf{\small add all tracked files and then commit}
-                \end{minipage}
-                \begin{minipage}{0.42\textwidth}
-                    \gitCommand{--amend}
-                \end{minipage}
-                \hspace{2mm}
-                \begin{minipage}{0.6\textwidth}
-                    \textsf{\small amend a commit}
-                \end{minipage}
+            \begin{gitsection}{...}
+                \gitCommandLong{git commit -m "message"}{Commit all staged files with a commit message}
+                \gitflag{0.45}{-am "message"}{0.5}{add all tracked files and then commit}
+                \gitflag{0.3}{--amend}{0.6}{amend a commit}
             \end{gitsection}
             
             \vspace{2mm}
             
-            \begin{gitsection}{Amend a commit}
-                \gitCommand{git reset --soft HEAD~1 }
-                \begin{minipage}{0.42\textwidth}
-                    \gitCommand{--hard <commit>}
-                \end{minipage}
-                \hspace{2mm}
-                \begin{minipage}{0.57\textwidth}
-                    \textsf{\small staged changes vs last commits}
-                \end{minipage}
+            \begin{gitsection}{...}
+                \gitCommandLong{git reset --soft HEAD~1 }{Reset commit}
+                \gitflag{0.45}{--hard <commit>}{0.5}{staged changes vs last commits}
             \end{gitsection}
 
             \vspace{2mm}
 
-            \begin{gitsection}{Tag your last commit}
-                \gitCommand{git tag <tag-name> }
-                \begin{minipage}{1\textwidth}
-                    \textsf{\small *tags needs to be committed separately}
-                \end{minipage}
+            \begin{gitsection}{...}
+                \gitCommandLong{git tag <tag-name> }{Tag your last commit}
+                \par\textsf{\small *tags needs to be committed separately}
             \end{gitsection}
         \end{gitBaseCard}
 
     \columnbreak
 
         \begin{gitBaseCard}{Stash}
-            
-            \begin{gitsection}{Stash all unstaged files}
-            \gitCommand{git stash}{testing}
-
-                \begin{minipage}{0.42\textwidth}
-                    \gitCommand{list}
-                \end{minipage}
-                \hspace{2mm}
-                \begin{minipage}{0.6\textwidth}
-                    \textsf{\small list all stashed files}
-                \end{minipage}
-
-                \begin{minipage}{0.42\textwidth}
-                    \gitCommand{pop}
-                \end{minipage}
-                \hspace{2mm}
-                \begin{minipage}{0.6\textwidth}
-                    \textsf{\small moves files from stash to active working dir}
-                \end{minipage}
-
-                \begin{minipage}{0.42\textwidth}
-                    \gitCommand{drop}
-                \end{minipage}
-                \hspace{2mm}
-                \begin{minipage}{0.6\textwidth}
-                    \textsf{\small removes all files from stash}
-                \end{minipage}
+            \begin{gitsection}{...}
+                \gitCommandLong{git stash}{Stash all unstaged files}
+                \gitflag{0.3}{list}{0.6}{list all stashed files}
+                \gitflag{0.3}{pop}{0.6}{moves files from stash to active working dir}
+                \gitflag{0.3}{drop}{0.6}{removes all files from stash}
             \end{gitsection}
-
         \end{gitBaseCard}
 
         \begin{gitBaseCard}{Branches}
-            
-            \begin{gitsection}{List all local branches}
-                \gitCommand{git branch}{test}
-                \begin{minipage}{0.1\textwidth}
-                    \gitCommand{-a}
-                \end{minipage}
-                \hspace{1mm}
-                \begin{minipage}{0.8\textwidth}
-                    \textsf{\small list all local and remote branches}
-                \end{minipage}
-                \begin{minipage}{0.12\textwidth}
-                    \gitCommand{-av}
-                \end{minipage}
-                \begin{minipage}{0.8\textwidth}
-                    \textsf{\small with extra info}
-                \end{minipage}
-                \begin{minipage}{0.42\textwidth}
-                    \gitCommand{-m <new-name>}
-                \end{minipage}
-                \hspace{2mm}
-                \begin{minipage}{0.6\textwidth}
-                    \textsf{\small rename (move) current branch to new}
-                \end{minipage}
-                \begin{minipage}{0.42\textwidth}
-                    \gitCommand{-c <new-name>}
-                \end{minipage}
-                \hspace{2mm}
-                \begin{minipage}{0.6\textwidth}
-                    \textsf{\small copy current branch to new-name}
-                \end{minipage}
-                \begin{minipage}{0.12\textwidth}
-                    \gitCommand{-d}
-                \end{minipage}
-                \hspace{2mm}
-                \begin{minipage}{0.6\textwidth}
-                    \textsf{\small delete local branch }
-                \end{minipage}
+            \begin{gitsection}{...}
+                \gitCommandLong{git branch}{List all local branches}
+                \gitflag{0.2}{-a}{0.75}{list all local and remote branches}
+                \gitflag{0.2}{-av}{0.75}{with extra info}
+                \gitflag{0.45}{-m <new-name>}{0.45}{rename (move) current branch to new}
+                \gitflag{0.45}{-c <new-name>}{0.45}{copy current branch to new-name}
+                \gitflag{0.2}{-d}{0.75}{delete local branch}
                 
                 \gitCommandLong{git push origin --delete <branch>}{deletes a remote branch}
-                
-
-                \gitflag{0.3}{--delete}{0.7}{delete remote branch}
+                \gitflag{0.3}{--delete}{0.65}{delete remote branch}
 
             \end{gitsection}
             
             \vspace{2mm}
             
-            \begin{gitsection}{Create a new branch}
-                \gitCommand{git reset <file>}
-                \begin{minipage}{0.32\textwidth}
-                    \gitCommand{--hard}
-                \end{minipage}
-                \hspace{2mm}
-                \begin{minipage}{0.6\textwidth}
-                    \textsf{\small ???}
-                \end{minipage}
+            \begin{gitsection}{...}
+                \gitCommandLong{git branch -c <name>}{Create a new branch}
             \end{gitsection}
-            
         \end{gitBaseCard}
 
     \end{multicols}
