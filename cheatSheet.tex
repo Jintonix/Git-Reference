@@ -3,69 +3,232 @@
 
 
 \begin{document}
-\begin{gitFlowCard}{Create local Repo then push to remote}
-    \begin{tikzpicture}[
-        node distance=0.8cm,
-        dot/.style={circle, draw=gitRed, fill=white, line width=1.5pt, inner sep=2pt},
-        line/.style={gitRed, line width=1.5pt},
-        dashed line/.style={gitRed, line width=1.5pt, dashed}
-    ]
+\section{Flowcharts}
 
-        % Main Trunk Nodes
-        \node[dot] (n1) {};
-        \node[right=2mm of n1, font=\sffamily\bfseries] {Create repo with hosting service};
-        
-        \node[dot, below=of n1] (n2) {};
-        \node[right=2mm of n2] {\gitlabel{git init} \textsf{\small in your local dir}};
-        
-        \node[dot, below=of n2] (n3) {};
-        \node[right=2mm of n3] {\gitlabel{git remote add origin <url>}};
+\setlength{\columnsep}{1cm}
+    \begin{multicols}{2}
+    \begin{gitFlowCard}{Create local Repo then push to remote}
+        \begin{tikzpicture}[
+            node distance=0.8cm,
+            dot/.style={circle, draw=gitRed, fill=white, line width=1.5pt, inner sep=2pt},
+            line/.style={gitRed, line width=1.5pt},
+            dashed line/.style={gitRed, line width=1.5pt, dashed}
+        ]
 
-        % The Branching Point
-        \node[below=1.5cm of n3] (n4) {}; % Invisible anchor for dashed line
-        
-        % Side Branch for conditional
-        \coordinate (branchStart) at ($(n3)!0.48!(n4)$);
-        \node[right=1.2cm of branchStart, text=gitRed, font=\sffamily\scriptsize\itshape] (condText) {If the created repo has commits already (e.g. a README)};
-        
-        \node[dot, below=0.4cm of condText.south west, anchor=center] (b1) {};
-        \node[right=2mm of b1] {\gitlabel{git fetch}};
-        
-        \node[dot, below=of b1] (b2) {};
-        \node[right=2mm of b2] {\gitlabel{git branch -u origin/main main}};
-        
-        \node[dot, below=of b2] (b3) {};
-        \node[right=2mm of b3] {\gitlabel{git pull --rebase}};
+            % Main Trunk Nodes
+            \node[dot] (n1) {};
+            \node[right=2mm of n1, font=\sffamily\bfseries] {Create repo with hosting service};
+            
+            \node[dot, below=of n1] (n2) {};
+            \node[right=2mm of n2] {\gitlabel{git init} \textsf{\small in your local dir}};
+            
+            \node[dot, below=of n2] (n3) {};
+            \node[right=2mm of n3] {\gitlabel{git remote add origin <url>}};
+
+            % The Branching Point
+            \node[below=1.5cm of n3] (n4) {}; % Invisible anchor for dashed line
+            
+            % Side Branch for conditional
+            \coordinate (branchStart) at ($(n3)!0.48!(n4)$);
+            \node[right=1.2cm of branchStart, text=gitRed, font=\sffamily\scriptsize\itshape] (condText) {If the created repo has commits already (e.g. a README)};
+            
+            \node[dot, below=0.4cm of condText.south west, anchor=center] (b1) {};
+            \node[right=2mm of b1] {\gitlabel{git fetch}};
+            
+            \node[dot, below=of b1] (b2) {};
+            \node[right=2mm of b2] {\gitlabel{git branch -u origin/main main}};
+            
+            \node[dot, below=of b2] (b3) {};
+            \node[right=2mm of b3] {\gitlabel{git pull --rebase}};
 
 
 
-        % Resume Main Trunk
-        \node[dot, below=4.5cm of n3] (n5) {};
-        \node[right=2mm of n5] {\gitlabel{git add}};
-      
-        \node[dot, below=of n5] (n6) {};
-        \node[right=2mm of n6] {\gitlabel{git commit -m "message"}};
+            % Resume Main Trunk
+            \node[dot, below=4.5cm of n3] (n5) {};
+            \node[right=2mm of n5] {\gitlabel{git add}};
         
-        \node[dot, below=of n6] (n7) {};
-        \node[right=2mm of n7] {\gitlabel{git push -u origin main}};
+            \node[dot, below=of n5] (n6) {};
+            \node[right=2mm of n6] {\gitlabel{git commit -m "message"}};
+            
+            \node[dot, below=of n6] (n7) {};
+            \node[right=2mm of n7] {\gitlabel{git push -u origin main}};
 
-        \coordinate (branchEnd) at ($(n4)!0.8!(n5)$);
-        
-        % Drawing the lines
-        \draw[line] (n1) -- (n2);
-        \draw[line] (n2) -- (n3);
-        \draw[dashed line] (n3) -- (n5);
-        \draw[line] (n5) -- (n6);
-        \draw[line] (n6) -- (n7);
-        
-        % Drawing the branch curves
-        \draw[line, rounded corners=5pt] (branchStart) -- ++(0.5,0) |- (b1);
-        \draw[line] (b1) -- (b2);
-        \draw[line] (b2) -- (b3);
-        \draw[line, rounded corners=5pt] (b3) -- ++(0,-0.35) -| (branchEnd);
+            \coordinate (branchEnd) at ($(n4)!0.8!(n5)$);
+            
+            % Drawing the lines
+            \draw[line] (n1) -- (n2);
+            \draw[line] (n2) -- (n3);
+            \draw[dashed line] (n3) -- (n5);
+            \draw[line] (n5) -- (n6);
+            \draw[line] (n6) -- (n7);
+            
+            % Drawing the branch curves
+            \draw[line, rounded corners=5pt] (branchStart) -- ++(0.5,0) |- (b1);
+            \draw[line] (b1) -- (b2);
+            \draw[line] (b2) -- (b3);
+            \draw[line, rounded corners=5pt] (b3) -- ++(0,-0.35) -| (branchEnd);
 
-    \end{tikzpicture}
-\end{gitFlowCard}
+        \end{tikzpicture}
+    \end{gitFlowCard}
+
+    \begin{gitFlowCard}{Remove and untrack a mistaken file}
+        \begin{tikzpicture}[
+            node distance=0.8cm,
+            dot/.style={circle, draw=gitRed, fill=white, line width=1.5pt, inner sep=2pt},
+            line/.style={gitRed, line width=1.5pt}
+        ]
+            \node[dot] (n1) {};
+            \node[right=2mm of n1] {\gitlabel{git rm --cached <file>}};
+
+            \node[dot, below=of n1] (n2) {};
+            \node[right=2mm of n2, font=\sffamily\bfseries\small] {add file to your .gitignore};
+
+            \node[dot, below=of n2] (n3) {};
+            \node[right=2mm of n3] {\gitlabel{git add .gitignore}};
+
+            \node[dot, below=of n3] (n4) {};
+            \node[right=2mm of n4] {\gitlabel{git commit -m "message"}};
+
+            \node[dot, below=of n4] (n5) {};
+            \node[right=2mm of n5] {\gitlabel{git push}};
+
+            \draw[line] (n1) -- (n2) -- (n3) -- (n4) -- (n5);
+
+            \node[below=0.2cm of n5.south west, anchor=north west, text=gitRed, font=\sffamily\scriptsize\itshape, text width=5cm] 
+                {NOTE: when others pull from remote, <file> will be removed from their local};
+        \end{tikzpicture}
+    \end{gitFlowCard}
+ 
+    \begin{gitFlowCard}{Discard everything up to last commit}
+        \begin{tikzpicture}[
+            node distance=0.8cm,
+            dot/.style={circle, draw=gitRed, fill=white, line width=1.5pt, inner sep=2pt},
+            line/.style={gitRed, line width=1.5pt}
+        ]
+            \node[dot] (n1) {};
+            \node[right=2mm of n1] {\gitlabel{git reset --hard HEAD}};
+            
+            \node[below=0.4cm of n1.south east, anchor=north west, font=\sffamily\itshape\small] {untracked files remain};
+
+            \node[dot, below=1.2cm of n1] (n2) {};
+            \node[right=2mm of n2] {\gitlabel{git clean -fd}};
+            
+            \node[below=0.4cm of n2.south west, anchor=north west, font=\sffamily\itshape\small] {-d: removes untracked, but not ignored files};
+
+            \draw[line] (n1) -- (n2);
+        \end{tikzpicture}
+    \end{gitFlowCard}
+
+    \columnbreak
+
+    \begin{gitFlowCard}{Restore file to match last commit}
+        \begin{tikzpicture}[
+            node distance=0.8cm,
+            dot/.style={circle, draw=gitRed, fill=white, line width=1.5pt, inner sep=2pt},
+            line/.style={gitRed, line width=1.5pt}
+        ]
+            \node[dot] (n1) {};
+            \node[right=2mm of n1] {\gitlabel{git restore <file>}};
+            \node[below=0.4cm of n1.south east, anchor=north west, font=\sffamily\itshape\small] {Reverts \texttt{<file>} in working directory};
+
+            \node[dot, below=1.2cm of n1] (n2) {};
+            \node[right=2mm of n2] {\gitlabel{git restore --staged <file>}};
+            
+            \node[below=0.4cm of n2.south west, anchor=north west, font=\sffamily\itshape\small, align=right] 
+                {Removes file from the staging area\\ Keep changes in working directory};
+
+            \draw[line] (n1) -- (n2);
+        \end{tikzpicture}
+    \end{gitFlowCard}
+
+    \begin{gitFlowCard}{Release new version: GitHub}
+        \begin{tikzpicture}[
+            node distance=0.8cm,
+            dot/.style={circle, draw=gitRed, fill=white, line width=1.5pt, inner sep=2pt},
+            grayDot/.style={circle, draw=gray, fill=white, line width=1.5pt, inner sep=2pt},
+            line/.style={gitRed, line width=1.5pt},
+            grayLine/.style={gray, line width=1.5pt}
+        ]
+            % Main Trunk
+            \node[dot] (n1) {};
+            \node[right=2mm of n1, font=\sffamily\bfseries\small] {Make any changes and commit them as normal};
+
+            \node[dot, below=of n1] (n2) {};
+            \node[right=2mm of n2] {\gitlabel{git tag -a <version No.> -m "message"}};
+            \node[below=0.3cm of n2.south east, anchor=north west, font=\sffamily\itshape\scriptsize] {*-a: annotated tags};
+
+            \node[dot, below=1.1cm of n2] (n3) {};
+            \node[right=2mm of n3] {\gitlabel{git push --follow-tags}};
+
+            % Branch off for GitHub UI
+            \coordinate (branchPoint) at ($(n3)!0.5!(n3 |- 0,-4.5)$); % Point between dots for curve
+            
+            \node[grayDot, below right=0.6cm and 1.2cm of n3] (g1) {};
+            \node[right=2mm of g1, font=\sffamily\bfseries\small] {Go to Releases $\rightarrow$ Draft new release};
+
+            \node[grayDot, below=of g1] (g2) {};
+            \node[right=2mm of g2, font=\sffamily\small] {Choose your tag};
+
+            \node[grayDot, below=of g2] (g3) {};
+            \node[right=2mm of g3, font=\sffamily\small] {Target: main};
+
+            \node[grayDot, below=of g3] (g4) {};
+            \node[right=2mm of g4, font=\sffamily\small] {Add title and notes};
+
+            \node[grayDot, below=of g4] (g5) {};
+            \node[right=2mm of g5, font=\sffamily\small] {Publish};
+
+            % Connections
+            \draw[line] (n1) -- (n2);
+            \draw[line] (n2) -- (n3);
+            \draw[line, rounded corners=8pt] (n3) |- (g1);
+            \draw[grayLine] (g1) -- (g2) -- (g3) -- (g4) -- (g5);
+
+        \end{tikzpicture}
+    \end{gitFlowCard}
+
+    \begin{gitFlowCard}{Create and Merge branch}
+        \begin{tikzpicture}[
+            node distance=0.8cm,
+            dot/.style={circle, draw=gitRed, fill=white, line width=1.5pt, inner sep=2pt},
+            line/.style={gitRed, line width=1.5pt},
+            dashedLine/.style={gitRed, line width=1.5pt, dashed}
+        ]
+            \node[dot] (n1) {};
+            \node[right=2mm of n1] {\gitlabel{git switch -c <branch-name>}};
+
+            \node[below=0.4cm of n1, anchor=north west, text=gitRed!60!white, font=\sffamily\scriptsize\itshape] (note1) {do your stuff};
+
+            \node[dot, below=1.2cm of n1] (n2) {};
+            \node[right=2mm of n2] {\gitlabel{git switch main}};
+
+            \node[dot, below=of n2] (n3) {};
+            \node[right=2mm of n3] {\gitlabel{git merge <branch-name>}};
+
+            \node[below=0.4cm of n3, anchor=north west, text=gitRed!60!white, font=\sffamily\scriptsize\itshape] (note2) {clean up};
+
+            \node[dot, below=1.2cm of n3] (n4) {};
+            \node[right=2mm of n4] {\gitlabel{git push origin --delete <branch-name>}};
+
+            \node[dot, below=of n4] (n5) {};
+            \node[right=2mm of n5] {\gitlabel{git branch -d <branch-name>}};
+
+            % Drawing lines with dashed segments
+            \draw[line] (n1) -- ($(n1)!0.3!(n2)$);
+            \draw[dashedLine] ($(n1)!0.3!(n2)$) -- ($(n1)!0.7!(n2)$);
+            \draw[line] ($(n1)!0.7!(n2)$) -- (n2);
+
+            \draw[line] (n2) -- (n3);
+
+            \draw[line] (n3) -- ($(n3)!0.3!(n4)$);
+            \draw[dashedLine] ($(n3)!0.3!(n4)$) -- ($(n3)!0.7!(n4)$);
+            \draw[line] ($(n3)!0.7!(n4)$) -- (n4);
+
+            \draw[line] (n4) -- (n5);
+        \end{tikzpicture}
+    \end{gitFlowCard}
+
+    \end{multicols}
 
 \newpage
 
@@ -153,8 +316,6 @@
             \end{gitsection}
         \end{gitBaseCard}
 
-    \columnbreak
-
         \begin{gitBaseCard}{Stash}
             \begin{gitsection}{...}
                 \gitCommandLong{git stash}{Stash all unstaged files}
@@ -163,6 +324,8 @@
                 \gitflag{0.3}{drop}{0.6}{removes all files from stash}
             \end{gitsection}
         \end{gitBaseCard}
+
+        \columnbreak
 
         \begin{gitBaseCard}{Branches}
             \begin{gitsection}{...}
@@ -174,14 +337,117 @@
                 \gitflag{0.2}{-d}{0.75}{delete local branch}
                 
                 \gitCommandLong{git push origin --delete <branch>}{deletes a remote branch}
-                \gitflag{0.3}{--delete}{0.65}{delete remote branch}
 
             \end{gitsection}
             
             \vspace{2mm}
             
             \begin{gitsection}{...}
-                \gitCommandLong{git branch -c <name>}{Create a new branch}
+                \gitCommandLong{git branch -c <name>}{Copy branch into a new branch}
+                \gitCommandLong{git switch -c <name>}{Create a new branch and switch to it}
+            \end{gitsection}
+
+            \vspace{2mm}
+            
+            \begin{gitsection}{...}
+                \gitCommandLong{git switch <existing name>}{switch branches}
+            \end{gitsection}
+
+             \vspace{2mm}
+            
+            \begin{gitsection}{...}
+                \gitCommandLong{git switch --track <origin/branch-name>}{Creates a local branch that tracks a remote branch and switches to it}
+            \end{gitsection}
+        \end{gitBaseCard}
+
+    \end{multicols}
+
+\newpage
+
+\section{Some other title}
+    \setlength{\columnsep}{1cm}
+    \begin{multicols}{2}
+
+        \begin{gitBaseCard}{Remote branch interaction}
+            \begin{gitsection}{...}
+                \gitCommandLong{git push}{Move local commited changes to remote}
+                \gitflag{0.45}{--tags}{0.5}{push any commited tags to remote}
+            \end{gitsection}
+            
+            \vspace{2mm}
+            
+            \begin{gitsection}{...}
+                \gitCommandLong{git push -u origin <branch-name>}{Creates a new remote branch and sets your local upstream}
+                \gitCommandLong{git push --force-with-lease}{Safe way to force push: will not push if others habe commited changes}
+            \end{gitsection}
+
+            \vspace{2mm}
+
+            \begin{gitsection}{...}
+                \gitCommandLong{git pull}{Pull from remote to yours local working directory}
+                \gitflag{0.45}{--rebase}{0.4}{pull but rebase instead of merge}
+                \gitCommandLong{git fetch}{Pull the changes into your local but not working directory}
+            \end{gitsection}
+        \end{gitBaseCard}
+
+    \columnbreak
+
+        \begin{gitBaseCard}{File manipulation}
+            \begin{gitsection}{...}
+                \gitCommandLong{git mv <old> <new>}{Move file to different location}
+                \gitCommandLong{git rm <file>}{Remove local file}
+            \end{gitsection}
+
+            \vspace{2mm}
+
+            \begin{gitsection}{...}
+                \gitflag{0.3}{git clean}{0.3}{???}
+                \gitflag{0.55}{git restore <file>}{0.4}{restore a deleted file}
+                \gitCommandLong{git restore --staged --worktree <file>}{Restore a file to a previous commit version}
+            \end{gitsection}
+        \end{gitBaseCard}
+    \end{multicols}
+
+\newpage
+
+\section{Some other title}
+    \setlength{\columnsep}{1cm}
+    \begin{multicols}{2}
+        \begin{gitBaseCard}{History archeology}
+            \begin{gitsection}{...}
+                \gitflag{0.4}{git status}{0.5}{}
+                \gitCommandLong{git diff}{Shows the content differences between commits, staging area, and working directory.}
+                \gitflag{0.3}{--staged}{0.6}{staged changes vs last commits}
+                \gitflag{0.3}{HEAD}{0.6}{working directory vs last commit}
+            \end{gitsection}
+
+            \vspace{2mm}
+
+            \begin{gitsection}{...}
+                \gitflag{0.3}{git log}{0.3}{shows basic log of recent commits}
+                \gitCommandLong{git log --pretty=format:"\%h\%x09\%an\%x09\%ad\%x09\%s"}{outputs: commit hash | author | date | commit message}
+            \end{gitsection}
+
+            \begin{gitsection}{...}
+                \gitflag{0.3}{git show}{0.3}{output: ???}
+                \gitflag{0.3}{git blame}{0.3}{output: ???}
+                \gitflag{0.35}{git reflog}{0.5}{output: ???}
+            \end{gitsection}
+        \end{gitBaseCard}
+
+        \columnbreak
+
+        \begin{gitBaseCard}{Combine histories}
+            \begin{gitsection}{...}
+                \gitCommandLong{git merge <branch>}{merge <branch> into current branch}
+                \gitCommandLong{git rebase <branch>}{Apply any commits of current branch ontop of <branch>???}
+            \end{gitsection}
+        \end{gitBaseCard}
+
+        \begin{gitBaseCard}{Tags}
+            \begin{gitsection}{...}
+                \gitCommandLong{git tag <tag-name>}{add a tag to current commit}
+                \gitCommandLong{git push --tags}{tags must be pushed separately from other commits}
             \end{gitsection}
         \end{gitBaseCard}
 
