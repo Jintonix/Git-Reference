@@ -255,7 +255,8 @@
 
         \begin{gitBaseCard}{Creating Repository}
             \begin{gitsection}{...}
-                \gitCommandLong{git clone <url>}{Download an existing repository}
+                \gitCommandLong{git clone <url>}{Download an existing repository into a sub-directory}
+                \gitCommandLong{git clone <url> .}{Download an existing repository into your current directory}
             \end{gitsection}
             
             \vspace{2mm}
@@ -412,7 +413,8 @@
 
 \section{Some other title}
     \setlength{\columnsep}{1cm}
-    \begin{multicols}{2}
+    \begin{minipage}[b]{0.56\textwidth}
+
         \begin{gitBaseCard}{History archeology}
             \begin{gitsection}{...}
                 \gitflag{0.4}{git status}{0.5}{}
@@ -435,8 +437,9 @@
             \end{gitsection}
         \end{gitBaseCard}
 
-        \columnbreak
-
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.4\textwidth}
         \begin{gitBaseCard}{Combine histories}
             \begin{gitsection}{...}
                 \gitCommandLong{git merge <branch>}{merge <branch> into current branch}
@@ -450,7 +453,6 @@
                 \gitCommandLong{git push --tags}{tags must be pushed separately from other commits}
             \end{gitsection}
         \end{gitBaseCard}
-
-    \end{multicols}
+    \end{minipage}
 
 \end{document}
